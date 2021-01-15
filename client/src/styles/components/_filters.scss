@@ -1,0 +1,217 @@
+@import '../variable';
+
+.filters{
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		height: 92vh;
+		width: 0;
+		background-color: $white;
+		padding-top: 7vh;
+		transition: all 0.4s ease-in-out;
+		box-shadow: 6px 5px 15px rgb(194, 194, 194);
+        overflow: hidden;
+        z-index: 3;
+
+		form {
+			margin-top: 10px;
+			height: 100%;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+            
+            .filter-block{
+				margin-bottom: 1.6em;
+
+				h4{
+					position: relative;
+					padding: 10px 0 14px 20px;
+
+					color: $black;
+					font-weight: 700;
+					font-size: 1.3rem;
+                }
+                
+				input[type='search'],
+				input[type='text'],
+				select {
+					width: 90%;
+                    transform: translateX(5%);
+                    padding: .5em;
+                    box-shadow: none;
+                    border: 2px solid;
+                    border-color: transparent;
+					background-color: darken($white, 10%);
+                    font-size: 1.1rem !important;
+                    
+					&:focus {
+						outline: none;
+						background-color: $white;
+						border-color: $pink;
+					}
+                }
+                
+				input[type='search']::-webkit-search-cancel-button {
+					display: none;
+				}
+
+
+                li{
+                    display: inline-block;
+                    padding: 0 0 8px 34px;
+                    width: 100%;
+                    display: flex;
+                    align-items: flex-end;
+                    
+                    &:last-child {
+                        padding: 0 0 0 34px;
+                    }
+
+                    .checkbox-label{
+                        padding-left: 7px;
+                        transition: color 0.2s ease-in-out;
+
+                        &:hover {
+                            color: $pink
+                        }
+                    }
+                }
+
+
+                @supports(-webkit-appearance: none) or (-moz-appearance: none) {
+                    input[type='checkbox'],
+                    input[type='radio'] {
+                        --active: #edafb8;
+                        --active-inner: rgb(255, 255, 255);
+                        --focus: 2px rgba(39, 94, 254, .3);
+                        --border: #BBC1E1;
+                        --border-hover: #edafb8;
+                        --background: #fff;
+                        --disabled: #F6F8FF;
+                        --disabled-inner: #E1E6F9;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        height: 21px;
+                        outline: none;
+                        display: inline-block;
+                        vertical-align: top;
+                        position: relative;
+                        margin: 0;
+                        cursor: pointer;
+                        border: 1px solid var(--bc, var(--border));
+                        background: var(--b, var(--background));
+                        transition: background .3s, border-color .3s, box-shadow .2s;
+                        &:after {
+                        content: '';
+                        display: block;
+                        left: 0;
+                        top: 0;
+                        position: absolute;
+                        transition: transform var(--d-t, .3s) var(--d-t-e, ease), opacity var(--d-o, .2s);
+                        }
+                        &:checked {
+                        --b: var(--active);
+                        --bc: var(--active);
+                        --d-o: .3s;
+                        --d-t: .6s;
+                        --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+                        }
+                        &:disabled {
+                        --b: var(--disabled);
+                        cursor: not-allowed;
+                        opacity: .9;
+                        &:checked {
+                            --b: var(--disabled-inner);
+                            --bc: var(--border);
+                        }
+                        & + label {
+                            cursor: not-allowed;
+                        }
+                        }
+                        &:hover {
+                        &:not(:checked) {
+                            &:not(:disabled) {
+                            --bc: var(--border-hover);
+                            }
+                        }
+                        }
+                        &:focus {
+                        box-shadow: 0 0 0 var(--focus);
+                        }
+                        &:not(.switch) {
+                        width: 21px;
+                        &:after {
+                            opacity: var(--o, 0);
+                        }
+                        &:checked {
+                            --o: 1;
+                        }
+                        }
+                        & + label {
+                        font-size: 14px;
+                        line-height: 21px;
+                        display: inline-block;
+                        vertical-align: top;
+                        cursor: pointer;
+                        margin-left: 4px;
+                        }
+                    }
+                    input[type='checkbox'] {
+                        &:not(.switch) {
+                        border-radius: 7px;
+                        &:after {
+                            width: 5px;
+                            height: 9px;
+                            border: 2px solid var(--active-inner);
+                            border-top: 0;
+                            border-left: 0;
+                            left: 7px;
+                            top: 4px;
+                            transform: rotate(var(--r, 20deg));
+                        }
+                        &:checked {
+                            --r: 43deg;
+                        }
+                        }
+                        &.switch {
+                        width: 38px;
+                        border-radius: 11px;
+                        &:after {
+                            left: 2px;
+                            top: 2px;
+                            border-radius: 50%;
+                            width: 15px;
+                            height: 15px;
+                            background: var(--ab, var(--border));
+                            transform: translateX(var(--x, 0));
+                        }
+                        &:checked {
+                            --ab: var(--active-inner);
+                            --x: 17px;
+                        }
+                        &:disabled {
+                            &:not(:checked) {
+                            &:after {
+                                opacity: .6;
+                            }
+                            }
+                        }
+                        }
+                    }
+                    input[type='radio'] {
+                        border-radius: 50%;
+                        &:after {
+                        width: 19px;
+                        height: 19px;
+                        border-radius: 50%;
+                        background: var(--active-inner);
+                        opacity: 0;
+                        transform: scale(var(--s, .7));
+                        }
+                        &:checked {
+                        --s: .5;
+                        }
+                    }
+                }
+			}
+		}
+	}
