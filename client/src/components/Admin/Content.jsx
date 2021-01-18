@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux'
 
 import { searchTitleManuf } from '../../utils/searchTitleManuf'
 import {Filters, AdminCard, Popup} from '../index'
-import {removeDataAdmin} from '../../redux/actions/data'
+import {removeDataAdmin, postNewData} from '../../redux/actions/data'
 
 const Content = ({state, activeFilters, handleFilters, filters}) => {
     const dispatch = useDispatch()
@@ -16,7 +16,7 @@ const Content = ({state, activeFilters, handleFilters, filters}) => {
         visible: false,
         isProduct: false,
     })
-    const checkedCategory = (cat, item) => {
+    const checkedCategory = (cat, item, e) => {
         if(!cat.isGallery){
             setPopup({
                 visible: true, 
@@ -24,9 +24,13 @@ const Content = ({state, activeFilters, handleFilters, filters}) => {
                 currentData: {...item},
                 path: cat.path
             })
+        } else {
+            e.preventDefault();
+            dispatch(postNewData({imageUrl: e.target.files[0], type: item}, 'gallery'))
+            e.target.value = null;
         }
     }
-
+    
     return (
         <main className='content'>
             {Object.values(state) &&  
@@ -34,7 +38,11 @@ const Content = ({state, activeFilters, handleFilters, filters}) => {
                     <div key={`category__${index}`} className="category">
                     <div className="category_heading">
                         <h3>{category.heading}</h3>
-                        <button className='add_btn' onClick={() => checkedCategory(category)}>Добавить</button>
+                        {category.path === 'gallery' ? (    
+                            <input className='add_btn-toGallery' type="file" name="imageUrl" onChange={(e) => checkedCategory(category, index, e)}/>
+                        ) : (
+                            <button className='add_btn' onClick={() => checkedCategory(category)}>Добавить</button>
+                        )}
                     </div>
                     <div className="category_data">
                         {
@@ -54,6 +62,12 @@ const Content = ({state, activeFilters, handleFilters, filters}) => {
                                     )
                                 })
                         }
+                        {category.isProduct &&
+                    <Filters 
+                    manuf={filters.manufactured}
+                    types={filters.types}
+                    activeFilters={activeFilters}
+                    handleFilters={handleFilters}/>}
                     </div>
                 </div>
                 ))}

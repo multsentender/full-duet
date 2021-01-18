@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useReducer} from 'react';
+import React, {useState, useEffect, useReducer, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {fetchData} from '../redux/actions/data'
 
@@ -12,7 +12,7 @@ const toObject = (headings, obj) => {
       return  {
           items: Object.values(obj)[index],
           heading: headings[index],
-          path: el
+          path: el,
       };
     });
   };
@@ -24,7 +24,7 @@ const toObject = (headings, obj) => {
         items: arr.filter((el) => el.type === i),
         path: 'gallery',
         heading: galleryHeading[i],
-        isGallery: true
+        isGallery: true,
       }
     }
 
@@ -38,18 +38,18 @@ const toObject = (headings, obj) => {
           products: {
             isProduct: true,
             path: 'products',
-            items: action.payload.items,
-            count: action.payload.count,
+            items: action.payload.products.items,
+            count: action.payload.products.count,
             heading: 'Товары',
           },
         };
       case 'FILTERS':
         return {
-          ...toObject(filtersHeading, action.payload),
+          ...toObject(filtersHeading, action.payload.filters),
         };
       case 'GALLERY':
         return {
-          ...galleryFilter(action.payload)
+          ...galleryFilter(action.payload.gallery.items)
         };
       default:
         return state
@@ -60,12 +60,16 @@ const toObject = (headings, obj) => {
 
 const Admin = () => {
   const dispatch = useDispatch();
-  const { filters, products, gallery } = useSelector(({ data }) => data);
+  const state = useSelector(({ data }) => data);
 
-  const [state, localDispatch] = useReducer(reducer, {}) 
-  const actionCreate = (type, payload) => {
-    localDispatch({type, payload})
-  }
+  const [localState, localDispatch] = useReducer(reducer, {}) 
+  const [activeType, setActiveType] = useState('PRODUCTS')
+
+  useEffect(() => {
+    localDispatch({type: activeType, payload: state})
+  },
+  [state, activeType])
+
 
 //filters
   const [activeFilters, setActiveFilters] = useState({
@@ -82,21 +86,21 @@ const Admin = () => {
   return (
     <div className="admin-page">
       <header className="admin-page_header">
-
+        <h2>Duet</h2>
       </header>
       <main className="admin-page_main">
         <nav>
           <ul>
-            <li onClick={() => actionCreate('PRODUCTS', products)}>Товары</li>
-            <li onClick={() => actionCreate('FILTERS', filters)}>Фильтры</li>
-            <li onClick={() => actionCreate('GALLERY', gallery)}>Галерея</li>
+            <li onClick={() => setActiveType('PRODUCTS')}>Товары</li>
+            <li onClick={() => setActiveType('FILTERS')}>Фильтры</li>
+            <li onClick={() => setActiveType('GALLERY')}>Галерея</li>
           </ul>
         </nav>
         <Content 
-          filters={filters} 
+          filters={state.filters} 
           activeFilters={activeFilters} 
           handleFilters={handleFilters} 
-          state={state}/>
+          state={localState}/>
       </main>
     </div>
   );

@@ -10,11 +10,13 @@ export const SENDNEWDATA = 'SEND_NEW_DATA';
 
 // * POST запрос на добавление нового значения
 
-const sendNewData = (obj) => ({
-  type: SENDNEWDATA,
-  obj,
+const sendNewData = (obj, path) => ({
+    type: SENDNEWDATA,
+    obj,
+    path
 });
 export const postNewData = (data, path) => (dispatch) => {
+  console.log(data)
   let formData;
   if (path === 'products' || path === 'gallery'){
     formData = new FormData();
@@ -25,7 +27,7 @@ export const postNewData = (data, path) => (dispatch) => {
     formData = data
   }
   axios.post(`http://localhost:3003/api/admin/${path}`, formData).then(({ data }) => {
-    dispatch(sendNewData(data));
+      dispatch(sendNewData(data, path))
   });
 };
 
@@ -33,15 +35,16 @@ export const postNewData = (data, path) => (dispatch) => {
 
 // * PATCH запрос на обновление
 
-const updCurrentData = (obj) => ({
+const updCurrentData = (obj, path) => ({
   type: UPDCURRENTDATA,
   obj,
+  path
 });
 export const fetchUpdCurrentData = (obj, path) => (dispatch) => {
   axios
     .patch(`http://localhost:3003/api/admin/${path}?id=${obj._id}`, obj)
     .then(() => {
-      dispatch(updCurrentData(obj));
+      dispatch(updCurrentData(obj, path));
     });
 };
 
@@ -49,15 +52,16 @@ export const fetchUpdCurrentData = (obj, path) => (dispatch) => {
 
 // * DELETE запрос на удаление
 
-const removeCurrentData = ({ _id }) => ({
+const removeCurrentData = (_id, path ) => ({
   type: DELETECURRENTDATA,
   _id,
+  path
 });
 export const removeDataAdmin = (obj, path) => (dispatch) => {
   axios
     .delete(`http://localhost:3003/api/admin/${path}?id=${obj._id}`)
     .then(() => {
-      dispatch(removeCurrentData(obj));
+      dispatch(removeCurrentData(obj._id, path));
     });
 };
 

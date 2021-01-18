@@ -6,13 +6,13 @@ import { postNewData, fetchUpdCurrentData } from '../../redux/actions/data';
 
 
 const Popup = ({ isProduct, currentData, path, manufactured, types }) => {
-    console.log(currentData)
     const dispatch = useDispatch();
     const initialState = isProduct ? {
         title: '',
         type: '',
         description: '',
-        price: 0,
+        application: '',
+        price: '',
         manufacture: '',
         imageUrl: {},
         application: '',
@@ -43,30 +43,32 @@ const Popup = ({ isProduct, currentData, path, manufactured, types }) => {
   };
 
   const handleSubmit = (event) => {
+    console.log(state)
     event.preventDefault();
     if(currentData._id) {
         dispatch(fetchUpdCurrentData(state, path));
     } else{
         dispatch(postNewData(state, path));
     }
+    // setState(initialState)
   };
+
 
   return (
     <div className="modal">
       <div className="popup">
         <form
-          onChange={handleChange}
           onSubmit={handleSubmit}
           encType="multipart/form-data">
-          <input type="text" placeholder="Title" value={state.title} name="title" />
+          <input type="text" placeholder="Title" value={state.title} onChange={handleChange} name="title" />
           {isProduct && (
               <div>
-                <input type="number" placeholder="Price" value={state.price} name="price" />
-                <input type="text" placeholder="Description" value={state.description} name="description" />
-                <input type="text" placeholder="Application" value={state.application} name="application" />
-                <input type="file" name="imageUrl"/>
-                <input type="checkbox" placeholder="Favorite" checked={state.favorite} name="favorite" />
-                <select name="manufacture">
+                <input type="number" placeholder="Price" value={state.price} onChange={handleChange} name="price" />
+                <input type="text" placeholder="Description" value={state.description} onChange={handleChange} name="description" />
+                <input type="text" placeholder="Application" value={state.application} onChange={handleChange} name="application" />
+                <input type="file" name="imageUrl" onChange={(e) => handleChange(e)}/>
+                <input type="checkbox" placeholder="Favorite" checked={state.favorite} onChange={handleChange} name="favorite" />
+                <select name="manufacture" value={state.manufacture} onChange={handleChange}>
                     {manufactured.map((item, index) => {
                     return (
                         <option value={item._id} key={`${item._id}_${index}`}>
@@ -75,7 +77,7 @@ const Popup = ({ isProduct, currentData, path, manufactured, types }) => {
                     );
                     })}
                 </select>
-                <select name="type">
+                <select name="type" value={state.type} onChange={handleChange}>
                     {types.map((item, index) => {
                     return (
                         <option value={item._id} key={`${item._id}_${index}`}>
@@ -86,7 +88,7 @@ const Popup = ({ isProduct, currentData, path, manufactured, types }) => {
                 </select>
               </div>
           )}
-          <input type="submit" value="Create new item" />
+          <input type="submit" value={currentData._id ? 'Изменить' : "Добавить новый"} />
         </form>
       </div>
     </div>

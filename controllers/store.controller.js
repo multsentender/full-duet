@@ -46,16 +46,16 @@ module.exports.getByParams = async (req, res) => {
     }
 }
 module.exports.create = async (req, res) => {
-    const product = new Products({
-        manufacture: req.body.manufacture,
-        title: normalize(req.body.title),
-        type: req.body.type,
-        description: normalize(req.body.description),
-        price: req.body.price,
-        imageUrl: req.file ? req.file.path : '',
-        favorite: req.body.favorite
-    });
     try{
+        const product = new Products({
+            manufacture: req.body.manufacture,
+            title: normalize(req.body.title),
+            type: req.body.type,
+            description: normalize(req.body.description),
+            price: req.body.price,
+            imageUrl: req.file ? req.file.path : '',
+            favorite: req.body.favorite
+        });
         await product.save()
         res.status(201).json(product)
     } catch (e) {

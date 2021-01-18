@@ -104,7 +104,7 @@ const Home = () => {
                     </div>
                 </div>
     
-                <Gallery active={activeType} setActive={activeTypeHandler} items={gallery} isLoaded={isLoaded}/>
+                <Gallery active={activeType} setActive={activeTypeHandler} items={gallery.items} isLoaded={isLoaded}/>
                 <ProductSlider items={products.items} count={products.count} manuf={filters.manufactured} isLoaded={isLoaded}/>
                 <div className="text_block">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique nihil vel tempore, suscipit, possimus voluptatem officia nam eos odit.</p>
