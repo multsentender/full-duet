@@ -25,7 +25,7 @@ export const postNewData = (data, path) => (dispatch) => {
   } else{
     formData = data
   }
-  axios.post(`${process.env.BASE_URL}/api/admin/${path}`, formData).then(({ data }) => {
+  axios.post(`/api/admin/${path}`, formData).then(({ data }) => {
       dispatch(sendNewData(data, path))
   });
 };
@@ -41,7 +41,7 @@ const updCurrentData = (obj, path) => ({
 });
 export const fetchUpdCurrentData = (obj, path) => (dispatch) => {
   axios
-    .patch(`${process.env.BASE_URL}/api/admin/${path}?id=${obj._id}`, obj)
+    .patch(`/api/admin/${path}?id=${obj._id}`, obj)
     .then(() => {
       dispatch(updCurrentData(obj, path));
     });
@@ -58,7 +58,7 @@ const removeCurrentData = (_id, path ) => ({
 });
 export const removeDataAdmin = (obj, path) => (dispatch) => {
   axios
-    .delete(`${process.env.BASE_URL}/api/admin/${path}?id=${obj._id}`)
+    .delete(`/api/admin/${path}?id=${obj._id}`)
     .then(() => {
       dispatch(removeCurrentData(obj._id, path));
     });
@@ -84,7 +84,7 @@ export const fetchData = (favorite, type, manuf, admin) => (dispatch) => {
     dispatch(setLoaded(false))
     const manufactured = (manuf && manuf.length < 1) ? null : manuf
 
-    axios.post(`${process.env.BASE_URL}/api/store`, {
+    axios.post(`/api/store`, {
         favorite,
         manufactured,
         type,
@@ -94,7 +94,7 @@ export const fetchData = (favorite, type, manuf, admin) => (dispatch) => {
 }
 
 export const fetchMoreProducts = (type, manuf, page) => dispatch => {
-    axios.post(`${process.env.BASE_URL}/api/store`, {
+    axios.post(`/api/store`, {
         type,
         manuf,
         page})
