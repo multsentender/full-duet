@@ -12,23 +12,22 @@ const galleryController = require('../controllers/gallery.controller')
 
 
 router.post('/admin/auth', authController.auth)
-router.post('/admin/registration', authController.registration)
 
-router.get('/admin/gallery', galleryController.getAll)
-router.post('/admin/gallery', upload.single('imageUrl'), galleryController.create)
-router.delete('/admin/gallery', galleryController.delete)
+router.get('/admin/gallery', passport.authenticate('jwt', {session: false}), galleryController.getAll)
+router.post('/admin/gallery', passport.authenticate('jwt', {session: false}), upload.single('imageUrl'), galleryController.create)
+router.delete('/admin/gallery', passport.authenticate('jwt', {session: false}), galleryController.delete)
 
-router.post('/admin/types', typesController.create)
-router.delete('/admin/types', typesController.delete)
-router.patch('/admin/types', typesController.update)
+router.post('/admin/types', passport.authenticate('jwt', {session: false}), typesController.create)
+router.delete('/admin/types', passport.authenticate('jwt', {session: false}), typesController.delete)
+router.patch('/admin/types', passport.authenticate('jwt', {session: false}), typesController.update)
 
-router.post('/admin/manufactured', manufController.create)
-router.delete('/admin/manufactured', manufController.delete)
-router.patch('/admin/manufactured', manufController.update)
+router.post('/admin/manufactured', passport.authenticate('jwt', {session: false}), manufController.create)
+router.delete('/admin/manufactured', passport.authenticate('jwt', {session: false}), manufController.delete)
+router.patch('/admin/manufactured', passport.authenticate('jwt', {session: false}), manufController.update)
 
-router.post('/admin/products', upload.single('imageUrl'), storeController.create)
-router.patch('/admin/products', upload.single('imageUrl'), storeController.update)
-router.delete('/admin/products', storeController.delete)
+router.post('/admin/products', passport.authenticate('jwt', {session: false}), upload.single('imageUrl'), storeController.create)
+router.patch('/admin/products', passport.authenticate('jwt', {session: false}), upload.single('imageUrl'), storeController.update)
+router.delete('/admin/products', passport.authenticate('jwt', {session: false}), storeController.delete)
 
 router.post('/store', storeController.getByParams)
 

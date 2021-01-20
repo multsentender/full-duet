@@ -1,5 +1,4 @@
-import { openNotification } from 'utils/helpers';
-import { userApi } from 'utils/api';
+import axios from 'axios';
 
 const Actions = {
   setIsAuth: bool => ({
@@ -7,27 +6,15 @@ const Actions = {
     payload: bool,
   }),
   fetchUserLogin: postData => dispatch => {
-    return userApi
-      .signIn(postData)
+    return axios.post(`http://localhost:3003/api/admin/auth`, postData)
       .then(({ data }) => {
         const { token } = data;
-        openNotification({
-          title: 'Отлично!',
-          text: 'Авторизация успешна.',
-          type: 'success',
-        });
-        window.axios.defaults.headers.common['token'] = token;
-        window.localStorage['token'] = token;
+        axios.defaults.headers.common['Authorization'] = token
+        window.localStorage['Authorization'] = token;
         dispatch(Actions.setIsAuth(true));
         return data;
       })
-      .catch(({ response }) => {
-        openNotification({
-          title: 'Ошибка при авторизации',
-          text: 'Неверный пароль',
-          type: 'error',
-        });
-      });
+      .catch(({ response }) => {alert('Пароль неверный!')});
   },
 };
 

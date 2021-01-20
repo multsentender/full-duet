@@ -16,7 +16,6 @@ const sendNewData = (obj, path) => ({
     path
 });
 export const postNewData = (data, path) => (dispatch) => {
-  console.log(data)
   let formData;
   if (path === 'products' || path === 'gallery'){
     formData = new FormData();

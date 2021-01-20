@@ -63,7 +63,7 @@ const Admin = () => {
   const state = useSelector(({ data }) => data);
 
   const [localState, localDispatch] = useReducer(reducer, {}) 
-  const [activeType, setActiveType] = useState('PRODUCTS')
+  const [activeType, setActiveType] = useState('GALLERY')
 
   useEffect(() => {
     localDispatch({type: activeType, payload: state})
@@ -82,6 +82,7 @@ const Admin = () => {
   useEffect(() => 
       dispatch(fetchData(null, activeFilters.type, activeFilters.manuf, true)
   ), [activeFilters])
+  
   
   return (
     <div className="admin-page">

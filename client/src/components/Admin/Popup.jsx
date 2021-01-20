@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { postNewData, fetchUpdCurrentData } from '../../redux/actions/data';
 
 
-const Popup = ({ isProduct, currentData, path, manufactured, types }) => {
+const Popup = ({ closePopup, isProduct, currentData, path, manufactured, types }) => {
     const dispatch = useDispatch();
     const initialState = isProduct ? {
         title: '',
@@ -43,20 +43,20 @@ const Popup = ({ isProduct, currentData, path, manufactured, types }) => {
   };
 
   const handleSubmit = (event) => {
-    console.log(state)
     event.preventDefault();
     if(currentData._id) {
         dispatch(fetchUpdCurrentData(state, path));
     } else{
         dispatch(postNewData(state, path));
     }
-    // setState(initialState)
+    setState(initialState)
+    closePopup()
   };
-
 
   return (
     <div className="modal">
       <div className="popup">
+        <div className="popup-close_btn" onClick={closePopup}></div>
         <form
           onSubmit={handleSubmit}
           encType="multipart/form-data">
@@ -67,7 +67,10 @@ const Popup = ({ isProduct, currentData, path, manufactured, types }) => {
                 <input type="text" placeholder="Description" value={state.description} onChange={handleChange} name="description" />
                 <input type="text" placeholder="Application" value={state.application} onChange={handleChange} name="application" />
                 <input type="file" name="imageUrl" onChange={(e) => handleChange(e)}/>
-                <input type="checkbox" placeholder="Favorite" checked={state.favorite} onChange={handleChange} name="favorite" />
+                <div>
+                  <input type="checkbox" placeholder="Favorite" checked={state.favorite} onChange={handleChange} name="favorite" />
+                  <label for='Favorite'>Favorite</label>
+                </div>
                 <select name="manufacture" value={state.manufacture} onChange={handleChange}>
                     {manufactured.map((item, index) => {
                     return (

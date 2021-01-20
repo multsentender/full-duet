@@ -1,7 +1,7 @@
 const initialState = {
     data: null,
-    token: window.localStorage.token,
-    isAuth: !!window.localStorage.token
+    token: null,
+    isAuth: false
   };
   
 const user = (state = initialState, { type, payload }) => {

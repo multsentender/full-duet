@@ -16,24 +16,24 @@ const AdminCard = ({
         application} = el
     return (
         <div className="admin-card">
+            {imageUrl && (
             <div className="admin-card__image">
-                {imageUrl && (
-                    <img src={imageUrl} alt="card"/>
-                )}
+                <img src={imageUrl} alt="card"/>
             </div>
-            <div className="admin-card__info">
-                {title && (
+            )}
+            {title && (
+                <div className="admin-card__info">
                     <h4>{title}</h4>
-                )}
-                {manuf && (
-                    <div>
-                        <h3>{manuf}</h3>
-                        <b>{description}</b>
-                        <p>{application}</p>
-                        <span>{price}</span>
-                    </div>
-                )}
+                    {manuf && (
+                        <div>
+                            <h3>{manuf}</h3>
+                            <b>{description}</b>
+                            <p>{application}</p>
+                            <span>{price}₽</span>
+                        </div>
+                    )}
             </div>
+            )}
             <div className="change-card">
                 {!isGallery && (
                     <button onClick={() => updateCard(category, el)} className="update-card">
