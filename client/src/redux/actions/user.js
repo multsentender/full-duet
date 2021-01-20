@@ -6,7 +6,7 @@ const Actions = {
     payload: bool,
   }),
   fetchUserLogin: postData => dispatch => {
-    return axios.post(`http://localhost:3003/api/admin/auth`, postData)
+    return axios.post(`${process.env.BASE_URL}/api/admin/auth`, postData)
       .then(({ data }) => {
         const { token } = data;
         axios.defaults.headers.common['Authorization'] = token
