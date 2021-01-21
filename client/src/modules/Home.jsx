@@ -26,10 +26,7 @@ const Home = () => {
                 <div className="main-back" id='main'>
                     <div className="maintext">
                         <h2 className="test">Место создания прекрасного</h2>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere amet error asperiores incidunt
-                            soluta ut
-                            iusto magnam veritatis. Velit numquam tempore ipsa quas minima architecto maxime quidem enim harum
-                            reiciendis!</p>
+                        <p>Современное оборудование, професиональные косметические средства и умелые специалисты с большим опытом работы - то, что помогает достичь выдающихся результатов!</p>
                         <button>
                             <Link
                             to='contact'
@@ -44,7 +41,7 @@ const Home = () => {
                 <div className="infopage container" id='about'>
                     <div className="infotext">
                         <h2>Кто мы?</h2>
-                        <p>Карл Маркс (1844): «… коммунизм есть положительное выражение упразднения частной собственности; на первых порах он выступает как всеобщая частная собственность». Карл Маркс (1844): «… коммунизм есть положительное выражение упразднения частной собственности; на первых порах он выступает как всеобщая частная собственность».</p>
+                        <p>У нас работают специалисты высокого класса. Стилисты и парикмахеры помогут вам сохранить свою молодость и преумножить красоту. </br>Мы предлагаем большой перечень услуг: стрижки, долговременная укладка, окрашивание любой сложности, маникюр, педикюр, мелирование, коррекция и окрашивание бровей.</p>
                     </div>
                     <img src={image} alt="masterpiece"/>
                 </div>
