@@ -13,7 +13,7 @@ const Gallery = ({items, active, setActive, isLoaded}) => {
         <div className="gallery container">
             <div className="gallery_info">
                 <h4>Галерея</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit minima hic porro harum asperiores nulla molestias culpa. Perferendis, in harum.</p>
+                <p>У нас большой выбор профессиональных косметических средств класса люкс.</p>
             </div>
             <div className="gallery_types">
                 <button 
