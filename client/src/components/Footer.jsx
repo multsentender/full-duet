@@ -21,7 +21,7 @@ const Footer = () => {
             </div>
         </div>
         <WrappedMap
-            googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBF28TnyBFqo1YaucjW6-OpGSnj6P-mYcA"
+            googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyC6ntALp7pwynuaiFk29kr1VQ4YevRa8rE"
             loadingElement={<div style={{ height: `40vh` }} />}
             containerElement={<div style={{ height: `40vh` }} />}
             mapElement={<div style={{ height: `40vh` }} />}
