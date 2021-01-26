@@ -52,7 +52,7 @@ const Gallery = ({items, active, setActive, isLoaded}) => {
 
             </div>
             <div className="gallery_btn">
-                <a src='#'><span>Instagram</span></a>
+                <a src='https://instagram.com/dyet_t?igshid=1e43rqkd912va'><span>Instagram</span></a>
             </div>
         </div>
     )
