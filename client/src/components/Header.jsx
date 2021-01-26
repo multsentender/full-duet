@@ -24,7 +24,7 @@ const Header = () => {
                 <div className="selblock container">
                     <p><span className="bold">Наш номер: </span>+7(961) 913-82-24</p>
                     <p><span className="bold">Часы работы: </span>Пн-Вс 10-20</p>
-                    <a href="https://www.instagram.com/">
+                    <a href="https://instagram.com/dyet_t?igshid=1e43rqkd912va">
                         <svg width="20" height="20" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"
                             className="instagram">
                             <path
